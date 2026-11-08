@@ -1,0 +1,17 @@
+# Xcode personal user data
+xcuserdata/
+*.xcuserstate
+
+# Xcode builds and caches
+DerivedData/
+build/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# macOS system files
+.DS_Store
+
+# Sensitive API keys and credentials
+APIConfig.json
