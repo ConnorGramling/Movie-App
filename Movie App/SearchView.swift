@@ -11,9 +11,10 @@ struct SearchView: View {
     @State private var searchByMovies = true
     @State private var searchText = ""
     private let searchViewModel = SearchViewModel()
+    @State private var navigationPath = NavigationPath()
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             ScrollView {
                 if let error = searchViewModel.errorMessage {
                     Text(error)
@@ -35,6 +36,9 @@ struct SearchView: View {
                             ProgressView()
                         }
                         .frame(width: 120, height: 200)
+                        .onTapGesture {
+                            navigationPath.append(title)
+                        }
                     }
                 }
             }
@@ -62,6 +66,9 @@ struct SearchView: View {
                 }
                 
                 await searchViewModel.getSearchTitles(by: searchByMovies ? "movie" : "tv", for: searchText)
+            }
+            .navigationDestination(for: Title.self) {title in
+                TitleDetailView(title: title)
             }
         }
     }
